@@ -1,5 +1,4 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
-{% from 'lbh-button/macro.njk' import lbhButton %}
 
 {% extends "./layouts/base.html" %}
 
@@ -8,25 +7,23 @@
     {% include './partials/end-message-field-' + messageID + '.html' %}
     {% else %}
 
-    <h1 class="lbh-heading-h1">Thank you.</h1>
-    <p class="lbh-body-m">Thank you for your request, we understand this is a difficult situation for you.</p>
+    <h1 class="lbh-heading-h1">Thank you for your request for support.</h1>
+    <p class="lbh-body-m">If you’ve shared an email address, you’ll receive an email confirmation.</p>
     
     <h3 class="lbh-heading-h3">What happens next</h3>
 
-    <p class="lbh-body-m">We will assess your request and prioritise the most urgent cases. We might:</p>
+    <p class="lbh-body-m">We will look at your request and then find you the most appropriate support. </p>
 
-    <ul class="lbh-list lbh-list--bullet">
-        <li>contact you if we need further information</li>
-        <li>share your details with a charity or service that’s delivering supplies with the Council</li>
-    </ul>
+    <p class="lbh-body-m">We will contact you within 5 working days and contact the most urgent requests first.</p>
 
-    <h3 class="lbh-heading-h3">Basic food deliveries</h3>
-    <p class="lbh-body-m">We aim to deliver your food within 3 working days. We do not make deliveries on weekends. If you made your request on a Friday, the earliest you can get a food delivery is the following Tuesday. You will need to rely on friends, family and neighbours in the meantime.</p>
+    <p class="lbh-body-m">If you need to talk to us sooner, call 020 8356 3111 from 9am to 5pm, Monday to Friday. If we need to call you, it will show as coming from the number 020 8356 0018.</p>
+    
+    
+    <h3 class="lbh-heading-h3">If you’ve requested help with accessing medicines or other essentials</h3>
+    <p class="lbh-body-m">We will share your request with <a href="https://www.vchackney.org/" target="_blank">Volunteer Centre Hackney.</a>. They will contact you within 2 working days. We will only do this if you’ve given us consent to share your request with voluntary or community organisations.</p>
 
-    <h3 class="lbh-heading-h3">Essentials or medical prescription deliveries</h3>
-    <p class="lbh-body-m">We provide this service with <a href="https://www.vchackney.org/" target="_blank">Volunteer Centre Hackney.</a> They will contact you to discuss what you need. They aim to deliver within 1 to 2 working days.</p>
-    <p class="lbh-body-m">For more information and advice, read our guidance on <a href="https://hackney.gov.uk/coronavirus-support" target="_blank">coronavirus support.</a></p>
+    <p class="lbh-body-m"><a href="https://docs.google.com/forms/d/e/1FAIpQLSekZLzPdlFxU6847Hzfl-ZkIcuIWdnPIHI0qS5eFJdANNAT9w/viewform">What did you think of this service?</a></p>
 
-
+    <p class="lbh-body-m"><a href="https://hackney.gov.uk/coronavirus-support">Find out more about coronavirus support.</a></p>
     {% endif %}
 {% endblock %}
