@@ -1,0 +1,39 @@
+{% from 'lbh-header/macro.njk' import lbhHeader %}
+{% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-radios/macro.njk' import lbhRadios %}
+
+{% extends "./layouts/base.html" %}
+
+{% block content %}
+    <h1 class="lbh-heading-h2">Can you currently afford to pay for food and other essential supplies?</h1>
+    <p class="lbh-body-m">Tell us if you have money to pay for groceries and other essentials, such as nappies or sanitary products.</p>
+
+    <form action="/step-2" method="post">
+        {{ lbhRadios({
+            "idPrefix": "able_to_afford_food_essentials",
+            "name": "able_to_afford_food_essentials",
+            "hint": {
+                "text": ""
+            },
+            "items": [
+                {
+                "value": "yes",
+                    "text": "Yes",
+                    "checked": true if query.able_to_afford_food_essentials == 'yes' else false
+                },
+                {
+                "value": "no",
+                    "text": "No",
+                    "checked": true if query.able_to_afford_food_essentials == 'no' else false
+                }
+            ],
+            "errorMessage": {
+                "text": query.error_able_to_afford_food_essentials
+            } if query.error_able_to_afford_food_essentials else null
+        }) }}
+
+        {{ lbhButton({
+            text: "Next"
+        })}}
+    </form>
+{% endblock %}

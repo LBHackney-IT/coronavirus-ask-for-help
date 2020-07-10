@@ -1,0 +1,25 @@
+{% from 'lbh-header/macro.njk' import lbhHeader %}
+{% from 'lbh-button/macro.njk' import lbhButton %}
+
+{% extends "./layouts/base.html" %}
+
+{% block content %}
+    <h1 class="lbh-heading-h2"></h1>
+    <p class="lbh-body-m"></p>
+
+    <form action="/step-2" method="post">
+        {% include './partials/step-1-fields.html' %}
+        {% include './partials/step-1-1-fields.html' %}
+        {% include './partials/step-1-2-fields.html' %}
+        {% include './partials/step-1-3-fields.html' %}
+        {% include './partials/step-1-4-fields.html' %}
+        {% include './partials/step-2-fields.html' %}
+        {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-4-fields.html' %}
+        {% include './partials/step-5-fields.html' %}
+
+        {{ lbhButton({
+            text: "Next"
+        })}}
+    </form>
+{% endblock %}
