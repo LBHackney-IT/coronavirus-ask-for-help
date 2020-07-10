@@ -1,0 +1,32 @@
+{% extends "template.njk" %}
+
+{% block head %}
+
+  {% if GA_UA %}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_UA }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ GA_UA }}');
+  </script>
+  {% endif %}
+
+   <link rel="stylesheet" type="text/css" href="public/app.css">
+{% endblock %}
+
+
+{% block pageTitle %}Coronavirus &mdash; get the support you need | Hackney Council{% endblock %}
+
+{% block header %}
+  {{lbhHeader({
+    isHome: false,
+    serviceName: "Request food, essentials or prescription deliveries"
+  })}}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="public/main.js?v=1.1"></script>
+{% endblock %}

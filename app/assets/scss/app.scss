@@ -1,0 +1,56 @@
+@import 'node_modules/lbh-frontend/lbh/core/all';
+@import 'node_modules/lbh-frontend/lbh/objects/all';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-button/button';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-checkboxes/checkboxes';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-date-input/date-input';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-error-summary/error-summary';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-fieldset/fieldset';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-header/header';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-input/input';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-label/label';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-page-announcement/page-announcement';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-radios/radios';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-select/select';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-skip-link/skip-link';
+@import 'node_modules/lbh-frontend/lbh/components/lbh-textarea/textarea';
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+#address-lookup-fieldset {
+  display: none;
+
+  .js-enabled & {
+    display: block;
+  }
+}
+
+#address-manual-fieldset {
+  display: none;
+}
+
+.govuk-fieldset {
+  margin-top: 50px;
+}
+
+.logos {
+  text-align: center;
+  width: 100%;
+
+  .logo {
+    display: inline-block;
+    margin: 0 auto;
+    vertical-align: middle;
+  }
+
+}
+
+.lbh-logo {
+  width: 250px;
+}
+
+.vch-logo {
+  width: 200px;
+}
