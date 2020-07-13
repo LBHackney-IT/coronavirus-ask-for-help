@@ -1,11 +1,12 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from "lbh-date-input/macro.njk" import lbhDateInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
+    <h1 class="lbh-heading-h2">What is your date of birth?</h1>
+    <p class="lbh-body-m">For example, 31 3 1980.</p>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -15,8 +16,46 @@
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
         {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-3-1-fields.html' %}
+        {% include './partials/step-3-2-fields.html' %}
+        {% include './partials/step-3-3-fields.html' %}
+        {% include './partials/step-3-4-fields.html' %}
+        {% include './partials/step-3-5-fields.html' %}
         {% include './partials/step-4-fields.html' %}
         {% include './partials/step-5-fields.html' %}
+
+
+        {{ lbhDateInput({
+            "items": [
+                {
+                "id": "dob_day",
+                "name": "dob_day",
+                "label": "Day",
+                "classes": "govuk-input--width-2 " + ("govuk-input--error" if query.error_dob_day else ''),
+                "value": query.dob_day
+                },
+                {
+                "id": "dob_month",
+                "name": "dob_month",
+                "label": "Month",
+                "classes": "govuk-input--width-2 " + ("govuk-input--error" if query.error_dob_month else ''),
+                "value": query.dob_month
+                },
+                {
+                "id": "dob_year",
+                "name": "dob_year",
+                "label": "Year",
+                "classes": "govuk-input--width-4 " + ("govuk-input--error" if query.error_dob_year else ''),
+                "value": query.dob_year
+                }
+            ],
+            "formGroup": {
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_dob_day or query.error_dob_month or query.error_dob_year else ''
+            },
+            "errorMessage": {
+                "text": "Enter a valid date"
+            } if query.error_dob-day or query.error_dob-month or query.error_dob-year else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"

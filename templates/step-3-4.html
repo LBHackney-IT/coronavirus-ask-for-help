@@ -1,11 +1,11 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
-{% from 'lbh-input/macro.njk' import lbhInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">How many children under the age of 18 are in your household?</h1>
+    <h1 class="lbh-heading-h2"></h1>
+    <p class="lbh-body-m"></p>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -18,22 +18,6 @@
         {% include './partials/step-3-1-fields.html' %}
         {% include './partials/step-3-2-fields.html' %}
         {% include './partials/step-3-3-fields.html' %}
-        {% include './partials/step-3-4-fields.html' %}
-        {% include './partials/step-3-5-fields.html' %}
-        {% include './partials/step-4-fields.html' %}
-        {% include './partials/step-5-fields.html' %}
-        {% include './partials/step-6-fields.html' %}
-        {% include './partials/step-7-fields.html' %}
-        {% include './partials/step-8-fields.html' %}
-
-        {{ lbhInput({
-            "id": "[FIELD_NAME]",
-            "name": "[FIELD_NAME]",
-            "value": query.[FIELD_NAME],
-            "errorMessage": {
-                "text": query.error_[FIELD_NAME]
-            } if query.error_[FIELD_NAME] else null
-        }) }}
 
         {{ lbhButton({
             text: "Next"

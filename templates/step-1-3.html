@@ -1,0 +1,43 @@
+{% from 'lbh-header/macro.njk' import lbhHeader %}
+{% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
+
+{% extends "./layouts/base.html" %}
+
+{% block content %}
+    <h1 class="lbh-heading-h2">What are your contact details? (Optional)</h1>
+
+    <form action="/step-1-3" method="post">
+        {% include './partials/step-1-fields.html' %}
+        {% include './partials/step-1-1-fields.html' %}
+        {% include './partials/step-1-2-fields.html' %}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Phone number"
+            },
+            "id": "on_behalf_contact_number",
+            "name": "on_behalf_contact_number",
+            "value": query.on_behalf_contact_number,
+            "errorMessage": {
+                "text": query.error_on_behalf_contact_number
+            } if query.error_on_behalf_contact_number else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Email address (optional?)"
+            },
+            "id": "on_behalf_email_address",
+            "name": "on_behalf_email_address",
+            "value": query.on_behalf_email_address,
+            "errorMessage": {
+                "text": query.error_on_behalf_email_address
+            } if query.error_on_behalf_email_address else null
+        }) }}
+
+        {{ lbhButton({
+            text: "Next"
+        })}}
+    </form>
+{% endblock %}

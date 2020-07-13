@@ -1,0 +1,42 @@
+{% from 'lbh-header/macro.njk' import lbhHeader %}
+{% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
+
+{% extends "./layouts/base.html" %}
+
+{% block content %}
+    <h1 class="lbh-heading-h2">What is your name? (Optional)</h1>
+
+    <form action="/step-1-2" method="post">
+        {% include './partials/step-1-fields.html' %}
+        {% include './partials/step-1-1-fields.html' %}
+
+        {{ lbhInput({
+            "label": {
+                "text": "First name"
+            },
+            "id": "on_behalf_first_name",
+            "name": "on_behalf_first_name",
+            "value": query.on_behalf_first_name,
+            "errorMessage": {
+                "text": query.error_on_behalf_first_name
+            } if query.error_on_behalf_first_name else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Last name"
+            },
+            "id": "on_behalf_last_name",
+            "name": "on_behalf_last_name",
+            "value": query.on_behalf_last_name,
+            "errorMessage": {
+                "text": query.error_on_behalf_last_name
+            } if query.error_on_behalf_last_name else null
+        }) }}
+
+        {{ lbhButton({
+            text: "Next"
+        })}}
+    </form>
+{% endblock %}

@@ -5,31 +5,27 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">Can you currently afford to pay for food and other essential supplies?</h1>
-    <p class="lbh-body-m">Tell us if you have money to pay for groceries and other essentials, such as nappies or sanitary products.</p>
+    <h1 class="lbh-heading-h2">Are you completing this form on behalf of someone else?</h1>
 
-    <form action="/step-2" method="post">
+    <form action="/step-1" method="post">
         {{ lbhRadios({
-            "idPrefix": "able_to_afford_food_essentials",
-            "name": "able_to_afford_food_essentials",
-            "hint": {
-                "text": ""
-            },
+            "idPrefix": "is_on_behalf",
+            "name": "is_on_behalf",
             "items": [
                 {
-                "value": "yes",
+                "value": "true",
                     "text": "Yes",
-                    "checked": true if query.able_to_afford_food_essentials == 'yes' else false
+                    "checked": true if query.is_on_behalf == 'true' else false
                 },
                 {
-                "value": "no",
+                "value": "false",
                     "text": "No",
-                    "checked": true if query.able_to_afford_food_essentials == 'no' else false
+                    "checked": true if query.is_on_behalf == 'false' else false
                 }
             ],
             "errorMessage": {
-                "text": query.error_able_to_afford_food_essentials
-            } if query.error_able_to_afford_food_essentials else null
+                "text": query.error_is_on_behalf
+            } if query.error_is_on_behalf else null
         }) }}
 
         {{ lbhButton({

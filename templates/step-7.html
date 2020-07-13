@@ -1,11 +1,11 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
+    <h1 class="lbh-heading-h2">What are your contact details?</h1>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -15,9 +15,57 @@
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
         {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-3-1-fields.html' %}
+        {% include './partials/step-3-2-fields.html' %}
+        {% include './partials/step-3-3-fields.html' %}
+        {% include './partials/step-3-4-fields.html' %}
+        {% include './partials/step-3-5-fields.html' %}
         {% include './partials/step-4-fields.html' %}
         {% include './partials/step-5-fields.html' %}
         {% include './partials/step-6-fields.html' %}
+
+
+        {{ lbhInput({
+            "label": {
+                "text": "Phone number (for phone calls)"
+            },
+            "type": "tel",
+            "id": "contact_telephone_number",
+            "name": "contact_telephone_number",
+            "value": query.contact_telephone_number,
+            "errorMessage": {
+                "text": query.error_contact_telephone_number
+            } if query.error_contact_telephone_number else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Phone number (for text messages) (Optional)"
+            },
+            "type": "tel",
+            "id": "contact_mobile_number",
+            "name": "contact_mobile_number",
+            "value": query.contact_mobile_number,
+            "errorMessage": {
+                "text": query.error_contact_mobile_number
+            } if query.error_contact_mobile_number else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Email address (Optional)"
+            },
+            "type": "email",
+            "id": "email",
+            "name": "email",
+            "value": query.email,
+            "formGroup": {
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_email else ''
+            },
+            "errorMessage": {
+                "text": query.error_email
+            } if query.error_email else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"

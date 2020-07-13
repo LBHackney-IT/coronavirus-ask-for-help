@@ -1,19 +1,112 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from "lbh-textarea/macro.njk" import lbhTextarea %}
+{% from "lbh-checkboxes/macro.njk" import lbhCheckboxes %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
-
-    <form action="/step-2" method="post">
+    
+    <form action="/step-3" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
         {% include './partials/step-1-2-fields.html' %}
         {% include './partials/step-1-3-fields.html' %}
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
+
+        {{ lbhTextarea({
+            "label": {
+                "text": "Why are you getting in touch with us today? (optional)"
+            },
+            "hint": {
+                "text": "Tell us about your situation and the help you need."
+            },
+            "id": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "value": query.[FIELD_NAME]
+        }) }}
+
+        {{ lbhCheckboxes({
+            "fieldset": {
+                "legend": {
+                    "text": "What type of help do you need because of coronavirus?"
+                }
+            },
+            "hint": {
+                "text": "Select all that apply"
+            },
+            "idPrefix": "is_urgent_help",
+            "name": "is_urgent_help",
+            "items": [
+                {
+                    "value": "accessing food",
+                    "text": "Accessing food",
+                    "checked": true if query.is_urgent_help and "accessing food" in query.is_urgent_help else false
+                },
+                {
+                    "value": "accessing medicines",
+                    "text": "Accessing medicines",
+                    "checked": true if query.is_urgent_help and "Accessing medicines" in query.is_urgent_help else false
+                },
+                {
+                    "value": "essential supplies",
+                    "text": "Accessing other essentials, such as nappies or cleaning products",
+                    "checked": true if query.is_urgent_help and "essential supplies" in query.is_urgent_help else false
+                },
+                {
+                    "value": "debt and money",
+                    "text": "Debt and money, including applying for benefits",
+                    "checked": true if query.is_urgent_help and "debt and money" in query.is_urgent_help else false
+                },
+                {
+                    "value": "health",
+                    "text": "Health, including testing for coronavirus",
+                    "checked": true if query.is_urgent_help and "health" in query.is_urgent_help else false
+                },
+                {
+                    "value": "mental health",
+                    "text": "Mental health and wellbeing, including feeling lonely or isolated",
+                    "checked": true if query.is_urgent_help and "mental health" in query.is_urgent_help else false
+                },
+                {
+                    "value": "housing",
+                    "text": "Housing, including feeling unsafe where you live or help with staying at home",
+                    "checked": true if query.is_urgent_help and "housing" in query.is_urgent_help else false
+                },
+                {
+                    "value": "jobs or training",
+                    "text": "Jobs or training",
+                    "checked": true if query.is_urgent_help and "jobs or training" in query.is_urgent_help else false
+                },
+                {
+                    "value": "children and schools",
+                    "text": "Children and schools",
+                    "checked": true if query.is_urgent_help and "children and schools" in query.is_urgent_help else false
+                },
+                {
+                    "value": "disabilities",
+                    "text": "Disabilities",
+                    "checked": true if query.is_urgent_help and "disabilities" in query.is_urgent_help else false
+                },
+                {
+                    "value": "technology support",
+                    "text": "Accessing the internet, including support to use technology",
+                    "checked": true if query.is_urgent_help and "technology support" in query.is_urgent_help else false
+                },
+                {
+                    "value": "something else",
+                    "text": "Something else",
+                    "checked": true if query.is_urgent_help and "something else" in query.is_urgent_help else false
+                }
+            ],
+            "formGroup": {
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_is_urgent_help else ''
+            },
+            "errorMessage": {
+                "text": query.error_is_urgent_help
+            } if query.error_is_urgent_help else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"

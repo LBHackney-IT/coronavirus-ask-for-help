@@ -1,11 +1,12 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
+    <h1 class="lbh-heading-h2">What is your name?</h1>
+    <p class="lbh-body-m">If you’re applying for someone else, enter the name of the person who needs support.</p>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -15,7 +16,36 @@
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
         {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-3-1-fields.html' %}
+        {% include './partials/step-3-2-fields.html' %}
+        {% include './partials/step-3-3-fields.html' %}
+        {% include './partials/step-3-4-fields.html' %}
+        {% include './partials/step-3-5-fields.html' %}
         {% include './partials/step-4-fields.html' %}
+
+        {{ lbhInput({
+            "label": {
+                "text": "First name"
+            },
+            "id": "first_name",
+            "name": "first_name",
+            "value": query.first_name,
+            "errorMessage": {
+                "text": query.error_first_name
+            } if query.error_first_name else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Last name"
+            },
+            "id": "last_name",
+            "name": "last_name",
+            "value": query.last_name,
+            "errorMessage": {
+                "text": query.error_last_name
+            } if query.error_last_name else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"

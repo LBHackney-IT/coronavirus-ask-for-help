@@ -4,8 +4,7 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
+    <h1 class="lbh-heading-h2">GP surgery details</h1>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -15,10 +14,28 @@
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
         {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-3-1-fields.html' %}
+        {% include './partials/step-3-2-fields.html' %}
+        {% include './partials/step-3-3-fields.html' %}
+        {% include './partials/step-3-4-fields.html' %}
+        {% include './partials/step-3-5-fields.html' %}
         {% include './partials/step-4-fields.html' %}
         {% include './partials/step-5-fields.html' %}
         {% include './partials/step-6-fields.html' %}
         {% include './partials/step-7-fields.html' %}
+
+
+        {{ lbhInput({
+            "id": "gp_surgery_details",
+            "name": "gp_surgery_details",
+            "value": query.gp_surgery_details,
+            "formGroup": {
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_gp_surgery_details else ''
+            },
+            "errorMessage": {
+                "text": query.error_gp_surgery_details
+            } if query.error_gp_surgery_details else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"
