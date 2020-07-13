@@ -7,7 +7,7 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-  <h1 class="lbh-heading-h2">What is the postcode of the person who needs support?</h1>
+  <h1 class="lbh-heading-h3">What is the postcode of the person who needs support?</h1>
 
   <form action="/step-2" method="post">
     {% include './partials/step-1-fields.html' %}
@@ -34,9 +34,6 @@
       }
     }) %}
       {{ lbhInput({
-        "label": {
-          "text": "Postcode"
-        },
         "hint": {
           "text": "Enter the postcode where you or someone you know needs support."
         },

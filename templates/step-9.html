@@ -5,7 +5,7 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">How many children under the age of 18 are in your household?</h1>
+    <h1 class="lbh-heading-h3">How many children under the age of 18 are in your household?</h1>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -26,12 +26,12 @@
         {% include './partials/step-8-fields.html' %}
 
         {{ lbhInput({
-            "id": "[FIELD_NAME]",
-            "name": "[FIELD_NAME]",
-            "value": query.[FIELD_NAME],
+            "id": "FIELD_NAME",
+            "name": "FIELD_NAME",
+            "value": query.FIELD_NAME,
             "errorMessage": {
-                "text": query.error_[FIELD_NAME]
-            } if query.error_[FIELD_NAME] else null
+                "text": query.error_FIELD_NAME
+            } if query.error_FIELD_NAME else null
         }) }}
 
         {{ lbhButton({

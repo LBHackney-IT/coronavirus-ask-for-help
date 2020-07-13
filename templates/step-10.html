@@ -5,7 +5,7 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">Can we share the information you’ve provided with voluntary or community organisations?</h1>
+    <h1 class="lbh-heading-h3">Can we share the information you’ve provided with voluntary or community organisations?</h1>
     <p class="lbh-body-m">For example, sharing your contact details with a charity so they can call you to offer support.</p>
     <p class="lbh-body-m">If we cannot share your information, it will be harder for us to find support but we can still help.</p>
     <p class="lbh-body-m">If you’re applying for someone else, you’ll need their consent to share their information.</p>
@@ -30,23 +30,23 @@
         {% include './partials/step-9-fields.html' %}
 
         {{ lbhRadios({
-            "idPrefix": "[FIELD_NAME]",
-            "name": "[FIELD_NAME]",
+            "idPrefix": "FIELD_NAME",
+            "name": "FIELD_NAME",
             "items": [
                 {
                 "value": "yes",
                     "text": "Yes",
-                    "checked": true if query.[FIELD_NAME] == 'yes' else false
+                    "checked": true if query.FIELD_NAME == 'yes' else false
                 },
                 {
                 "value": "no",
                     "text": "No",
-                    "checked": true if query.[FIELD_NAME] == 'no' else false
+                    "checked": true if query.FIELD_NAME == 'no' else false
                 }
             ],
             "errorMessage": {
-                "text": query.error_[FIELD_NAME]
-            } if query.error_[FIELD_NAME] else null
+                "text": query.error_FIELD_NAME
+            } if query.error_FIELD_NAME else null
         }) }}
 
         {{ lbhButton({

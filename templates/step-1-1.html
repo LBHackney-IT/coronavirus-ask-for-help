@@ -5,29 +5,29 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">Do you have the consent of the person needing help to complete this form on their behalf?</h1>
+    <h1 class="lbh-heading-h3">Do you have the consent of the person needing help to complete this form on their behalf?</h1>
 
     <form action="/step-1-1" method="post">
         {% include './partials/step-1-fields.html' %}
 
         {{ lbhRadios({
-            "idPrefix": "[FIELD_NAME]",
-            "name": "[FIELD_NAME]",
+            "idPrefix": "FIELD_NAME",
+            "name": "FIELD_NAME",
             "items": [
                 {
                 "value": "true",
                     "text": "Yes, I have their consent to complete this form",
-                    "checked": true if query.[FIELD_NAME] == 'true' else false
+                    "checked": true if query.FIELD_NAME == 'true' else false
                 },
                 {
                 "value": "false",
                     "text": "No, I do not have their consent",
-                    "checked": true if query.[FIELD_NAME] == 'false' else false
+                    "checked": true if query.FIELD_NAME == 'false' else false
                 }
             ],
             "errorMessage": {
-                "text": query.error_[FIELD_NAME]
-            } if query.error_[FIELD_NAME] else null
+                "text": query.error_FIELD_NAME
+            } if query.error_FIELD_NAME else null
         }) }}
 
         {{ lbhButton({

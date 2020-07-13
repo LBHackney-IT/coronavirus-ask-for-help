@@ -1,10 +1,11 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2">GP surgery details</h1>
+    <h1 class="lbh-heading-h3">GP surgery details</h1>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}

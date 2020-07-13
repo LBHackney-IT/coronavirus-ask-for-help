@@ -15,16 +15,15 @@
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
 
+        <h3 class="lbh-heading-h3">Why are you getting in touch with us today? (optional)</h3>
+
         {{ lbhTextarea({
-            "label": {
-                "text": "Why are you getting in touch with us today? (optional)"
-            },
             "hint": {
                 "text": "Tell us about your situation and the help you need."
             },
-            "id": "[FIELD_NAME]",
-            "name": "[FIELD_NAME]",
-            "value": query.[FIELD_NAME]
+            "id": "FIELD_NAME",
+            "name": "FIELD_NAME",
+            "value": query.FIELD_NAME
         }) }}
 
         {{ lbhCheckboxes({
