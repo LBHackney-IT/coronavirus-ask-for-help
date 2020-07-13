@@ -1,11 +1,11 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from "lbh-textarea/macro.njk" import lbhTextarea %}
+{% from "lbh-checkboxes/macro.njk" import lbhCheckboxes %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
 
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -18,6 +18,69 @@
         {% include './partials/step-3-1-fields.html' %}
         {% include './partials/step-3-2-fields.html' %}
         {% include './partials/step-3-3-fields.html' %}
+
+        {{ lbhCheckboxes({
+            "fieldset": {
+                "legend": {
+                    "text": "What essential supplies do you need?"
+                }
+            },
+            "hint": {
+                "text": "Select all that apply"
+            },
+            "idPrefix": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "items": [
+                {
+                    "value": "nappies",
+                    "text": "Nappies",
+                    "checked": true if query.[FIELD_NAME] and "nappies" in query.[FIELD_NAME] else false
+                },
+                {
+                    "value": "sanitary products",
+                    "text": "Sanitary products",
+                    "checked": true if query.[FIELD_NAME] and "sanitary products" in query.[FIELD_NAME] else false
+                },
+                {
+                    "value": "cleaning products",
+                    "text": "Cleaning products - such as washing up liquid or washing powder",
+                    "checked": true if query.[FIELD_NAME] and "cleaning products" in query.[FIELD_NAME] else false
+                },
+                {
+                    "value": "toiletries",
+                    "text": "Toiletries - such as toothpaste or shampoo",
+                    "checked": true if query.[FIELD_NAME] and "toiletries" in query.[FIELD_NAME] else false
+                },
+                {
+                    "value": "medical supplies",
+                    "text": "Medical supplies - such as paracetamol or plasters",
+                    "checked": true if query.[FIELD_NAME] and "medical supplies" in query.[FIELD_NAME] else false
+                },
+                {
+                    "value": "something else",
+                    "text": "Something else",
+                    "checked": true if query.[FIELD_NAME] and "something else" in query.[FIELD_NAME] else false
+                }
+            ],
+            "formGroup": {
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_[FIELD_NAME] else ''
+            },
+            "errorMessage": {
+                "text": query.error_[FIELD_NAME]
+            } if query.error_[FIELD_NAME] else null
+        }) }}
+
+        {{ lbhTextarea({
+            "label": {
+                "text": "Is there anything you’d like to tell us about the essential supplies you need? (Optional)"
+            },
+            "hint": {
+                "text": "For example, the size or number of products you need."
+            },
+            "id": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "value": query.[FIELD_NAME]
+        }) }}
 
         {{ lbhButton({
             text: "Next"

@@ -1,12 +1,11 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
+{% from 'lbh-radios/macro.njk' import lbhRadios %}
+{% from 'lbh-input/macro.njk' import lbhInput %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h2"></h1>
-    <p class="lbh-body-m"></p>
-
     <form action="/step-2" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
@@ -17,6 +16,60 @@
         {% include './partials/step-3-fields.html' %}
         {% include './partials/step-3-1-fields.html' %}
         {% include './partials/step-3-2-fields.html' %}
+
+        {{ lbhRadios({
+            "label": {
+                "text": "When do you need medicines to be delivered?"
+            },
+            "idPrefix": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "items": [
+                {
+                "value": "today or tomorrow",
+                    "text": "I need medicines today or tomorrow",
+                    "checked": true if query.[FIELD_NAME] == 'today or tomorrow' else false
+                },
+                {
+                "value": "this week or next week",
+                    "text": "I will need medicines later this week or next week",
+                    "checked": true if query.[FIELD_NAME] == 'this week or next week' else false
+                },
+                {
+                "value": "not sure",
+                    "text": "Not sure",
+                    "checked": true if query.[FIELD_NAME] == 'not sure' else false
+                }
+            ],
+            "errorMessage": {
+                "text": query.error_[FIELD_NAME]
+            } if query.error_[FIELD_NAME] else null
+        }) }}
+
+        <h2 class="lbh-heading-h3">Where does your medicine need to be collected from?</h2>
+
+        {{ lbhInput({
+            "label": {
+                "text": "Pharmacy name"
+            },
+            "id": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "value": query.[FIELD_NAME],
+            "errorMessage": {
+                "text": query.error_[FIELD_NAME]
+            } if query.error_[FIELD_NAME] else null
+        }) }}
+
+        {{ lbhInput({
+            "label": {
+                "text": "Pharmacy address (optional?)"
+            },
+            "id": "[FIELD_NAME]",
+            "name": "[FIELD_NAME]",
+            "value": query.[FIELD_NAME],
+            "errorMessage": {
+                "text": query.error_[FIELD_NAME]
+            } if query.error_[FIELD_NAME] else null
+        }) }}
 
         {{ lbhButton({
             text: "Next"
