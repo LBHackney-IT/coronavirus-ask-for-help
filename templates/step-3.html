@@ -21,9 +21,9 @@
             "hint": {
                 "text": "Tell us about your situation and the help you need."
             },
-            "id": "FIELD_NAME",
-            "name": "FIELD_NAME",
-            "value": query.FIELD_NAME
+            "id": "getting_in_touch_reason",
+            "name": "getting_in_touch_reason",
+            "value": query.getting_in_touch_reason
         }) }}
 
         {{ lbhCheckboxes({
@@ -35,76 +35,76 @@
             "hint": {
                 "text": "Select all that apply"
             },
-            "idPrefix": "is_urgent_help",
-            "name": "is_urgent_help",
+            "idPrefix": "what_coronavirus_help",
+            "name": "what_coronavirus_help",
             "items": [
                 {
                     "value": "accessing food",
                     "text": "Accessing food",
-                    "checked": true if query.is_urgent_help and "accessing food" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "accessing food" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "accessing medicines",
                     "text": "Accessing medicines",
-                    "checked": true if query.is_urgent_help and "Accessing medicines" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "Accessing medicines" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "essential supplies",
                     "text": "Accessing other essentials, such as nappies or cleaning products",
-                    "checked": true if query.is_urgent_help and "essential supplies" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "essential supplies" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "debt and money",
                     "text": "Debt and money, including applying for benefits",
-                    "checked": true if query.is_urgent_help and "debt and money" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "debt and money" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "health",
                     "text": "Health, including testing for coronavirus",
-                    "checked": true if query.is_urgent_help and "health" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "health" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "mental health",
                     "text": "Mental health and wellbeing, including feeling lonely or isolated",
-                    "checked": true if query.is_urgent_help and "mental health" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "mental health" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "housing",
                     "text": "Housing, including feeling unsafe where you live or help with staying at home",
-                    "checked": true if query.is_urgent_help and "housing" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "housing" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "jobs or training",
                     "text": "Jobs or training",
-                    "checked": true if query.is_urgent_help and "jobs or training" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "jobs or training" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "children and schools",
                     "text": "Children and schools",
-                    "checked": true if query.is_urgent_help and "children and schools" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "children and schools" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "disabilities",
                     "text": "Disabilities",
-                    "checked": true if query.is_urgent_help and "disabilities" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "disabilities" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "technology support",
                     "text": "Accessing the internet, including support to use technology",
-                    "checked": true if query.is_urgent_help and "technology support" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "technology support" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "something else",
                     "text": "Something else",
-                    "checked": true if query.is_urgent_help and "something else" in query.is_urgent_help else false
+                    "checked": true if query.what_coronavirus_help and "something else" in query.what_coronavirus_help else false
                 }
             ],
             "formGroup": {
-                "classes": "govuk-form-group--error lbh-form-group" if query.error_is_urgent_help else ''
+                "classes": "govuk-form-group--error lbh-form-group" if query.error_what_coronavirus_help else ''
             },
             "errorMessage": {
-                "text": query.error_is_urgent_help
-            } if query.error_is_urgent_help else null
+                "text": query.error_what_coronavirus_help
+            } if query.error_what_coronavirus_help else null
         }) }}
 
         {{ lbhButton({

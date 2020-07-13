@@ -18,23 +18,23 @@
         {% include './partials/step-3-fields.html' %}
 
         {{ lbhRadios({
-            "idPrefix": "FIELD_NAME",
-            "name": "FIELD_NAME",
+            "idPrefix": "medicine_delivery_help_needed",
+            "name": "medicine_delivery_help_needed",
             "items": [
                 {
                 "value": "yes",
                     "text": "Yes",
-                    "checked": true if query.FIELD_NAME == 'yes' else false
+                    "checked": true if query.medicine_delivery_help_needed == 'yes' else false
                 },
                 {
                 "value": "no",
                     "text": "No",
-                    "checked": true if query.FIELD_NAME == 'no' else false
+                    "checked": true if query.medicine_delivery_help_needed == 'no' else false
                 }
             ],
             "errorMessage": {
-                "text": query.error_FIELD_NAME
-            } if query.error_FIELD_NAME else null
+                "text": query.error_medicine_delivery_help_needed
+            } if query.error_medicine_delivery_help_needed else null
         }) }}
 
         {{ lbhButton({

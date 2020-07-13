@@ -30,23 +30,23 @@
         {% include './partials/step-9-fields.html' %}
 
         {{ lbhRadios({
-            "idPrefix": "FIELD_NAME",
-            "name": "FIELD_NAME",
+            "idPrefix": "consent_to_share",
+            "name": "consent_to_share",
             "items": [
                 {
                 "value": "yes",
                     "text": "Yes",
-                    "checked": true if query.FIELD_NAME == 'yes' else false
+                    "checked": true if query.consent_to_share == 'yes' else false
                 },
                 {
                 "value": "no",
                     "text": "No",
-                    "checked": true if query.FIELD_NAME == 'no' else false
+                    "checked": true if query.consent_to_share == 'no' else false
                 }
             ],
             "errorMessage": {
-                "text": query.error_FIELD_NAME
-            } if query.error_FIELD_NAME else null
+                "text": query.error_consent_to_share
+            } if query.error_consent_to_share else null
         }) }}
 
         {{ lbhButton({
