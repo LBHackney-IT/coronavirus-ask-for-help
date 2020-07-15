@@ -19,6 +19,16 @@ img {
   width: 100%;
 }
 
+#address-continue {
+  display: none;
+}
+
+.has-address-selected {
+  #address-continue {
+    display: block;
+  }
+}
+
 #address-lookup-fieldset {
   display: none;
 
