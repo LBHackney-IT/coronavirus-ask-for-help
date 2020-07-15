@@ -33,6 +33,9 @@ Addresses.prototype.showManualAddressForm = function(e) {
 Addresses.prototype.lookupAddress = function() {
   var postcode = this.postcode.value;
   var buildingNumber = this.buildingNumber.value;
+
+  document.body.classList.remove('has-address-selected');
+
   this.addresses = [];
   this.getAddressData(postcode, buildingNumber, 1);
 };
@@ -195,6 +198,8 @@ Addresses.prototype.populateChosenAddress = function(e) {
   document.getElementById("gazetteer").value = selectedOption.getAttribute(
     "data-gazetteer"
   );
+
+  document.body.classList.add('has-address-selected');
 };
 
 export default Addresses;
