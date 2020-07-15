@@ -22,17 +22,20 @@
             "name": "is_pharmacist_able_to_deliver",
             "items": [
                 {
-                "value": "yes",
+                    "value": "yes",
                     "text": "Yes",
-                    "checked": true if query.is_pharmacist_able_to_deliver == 'yes' else false
+                    "checked": true if query.is_pharmacist_able_to_deliver == 'yes' else false,
+                    "conditional": {
+                        "html": "<p class=\"lbh-body-m\">It is quicker if you ask your pharmacy to deliver your medicines to you.</p><p class=\"lbh-body-m\">If you cannot arrange this, complete this form again or call us on 020 8356 3111.</p>"
+                    }
                 },
                 {
-                "value": "no",
+                    "value": "no",
                     "text": "No",
                     "checked": true if query.is_pharmacist_able_to_deliver == 'no' else false
                 },
                 {
-                "value": "unsure",
+                    "value": "unsure",
                     "text": "Not sure",
                     "checked": true if query.is_pharmacist_able_to_deliver == 'unsure' else false
                 }
