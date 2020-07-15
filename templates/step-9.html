@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="lbh-heading-h3">How many children under the age of 18 are in your household?</h1>
 
-    <form action="/step-2" method="post">
+    <form action="/step-9" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
         {% include './partials/step-1-2-fields.html' %}
@@ -29,6 +29,7 @@
             "id": "number_of_children_under_18",
             "name": "number_of_children_under_18",
             "value": query.number_of_children_under_18,
+             "classes": "govuk-input--width-4",
             "errorMessage": {
                 "text": query.error_number_of_children_under_18
             } if query.error_number_of_children_under_18 else null

@@ -6,8 +6,9 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
+    <h1 class="lbh-heading-h3">Who is supporting you currently?"</h1>
     
-    <form action="/step-3" method="post">
+    <form action="/step-4" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
         {% include './partials/step-1-2-fields.html' %}
@@ -22,11 +23,6 @@
 
 
         {{ lbhCheckboxes({
-            "fieldset": {
-                "legend": {
-                    "text": "Who is supporting you currently?"
-                }
-            },
             "hint": {
                 "text": "Select all that apply"
             },
@@ -87,10 +83,8 @@
             } if query.error_current_support else null
         }) }}
 
+        <h3 class="lbh-heading-h3">Is there anything you’d like to tell us about the support you’re receiving? (Optional)</h3>
         {{ lbhTextarea({
-            "label": {
-                "text": "Is there anything you’d like to tell us about the support you’re receiving? (Optional)"
-            },
             "hint": {
                 "text": "For example, who is supporting you, how they’re helping or anything else you think we should know."
             },

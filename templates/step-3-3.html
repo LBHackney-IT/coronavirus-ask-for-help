@@ -1,12 +1,14 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
 {% from 'lbh-radios/macro.njk' import lbhRadios %}
-{% from 'lbh-input/macro.njk' import lbhInput %}
+{% from "lbh-textarea/macro.njk" import lbhTextarea %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <form action="/step-2" method="post">
+    <h1 class="lbh-heading-h3">When do you need medicines to be delivered?</h1>
+
+    <form action="/step-3-3" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
         {% include './partials/step-1-2-fields.html' %}
@@ -17,11 +19,8 @@
         {% include './partials/step-3-1-fields.html' %}
         {% include './partials/step-3-2-fields.html' %}
 
-        <h2 class="lbh-heading-h3">When do you need medicines to be delivered?</h2>
+        
         {{ lbhRadios({
-            "label": {
-                "text": "When do you need medicines to be delivered?"
-            },
             "idPrefix": "when_is_medicines_delivered",
             "name": "when_is_medicines_delivered",
             "items": [
@@ -48,28 +47,16 @@
 
         <h2 class="lbh-heading-h3">Where does your medicine need to be collected from?</h2>
 
-        {{ lbhInput({
-            "label": {
-                "text": "Pharmacy name"
+        {{ lbhTextarea({
+            "hint": {
+                "text": "Enter the pharmacy name and address for medicine collections."
             },
-            "id": "name_of_pharmacist",
-            "name": "name_of_pharmacist",
-            "value": query.name_of_pharmacist,
+            "id": "name_address_pharmacist",
+            "name": "name_address_pharmacist",
+            "value": query.getting_in_touch_reason,
             "errorMessage": {
-                "text": query.error_name_of_pharmacist
-            } if query.error_name_of_pharmacist else null
-        }) }}
-
-        {{ lbhInput({
-            "label": {
-                "text": "Pharmacy address (optional?)"
-            },
-            "id": "name_of_pharmacist",
-            "name": "name_of_pharmacist",
-            "value": query.name_of_pharmacist,
-            "errorMessage": {
-                "text": query.error_name_of_pharmacist
-            } if query.error_name_of_pharmacist else null
+                "text": query.error_name_address_pharmacist
+            } if query.error_name_address_pharmacist else null
         }) }}
 
         {{ lbhButton({

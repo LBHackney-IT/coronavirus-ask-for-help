@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="lbh-heading-h3">What is your relationship to the person who needs help?</h1>
 
-    <form action="/step-2" method="post">
+    <form action="/step-1-4" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
         {% include './partials/step-1-2-fields.html' %}
@@ -16,7 +16,10 @@
         {{ lbhTextarea({
             "id": "relationship_with_resident",
             "name": "relationship_with_resident",
-            "value": query.relationship_with_resident
+            "value": query.relationship_with_resident,
+            "errorMessage": {
+                "text": query.error_relationship_with_resident
+            } if query.error_relationship_with_resident else null
         }) }}
 
         {{ lbhButton({

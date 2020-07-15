@@ -6,7 +6,8 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    
+    <h3 class="lbh-heading-h3">Why are you getting in touch with us today? (Optional)</h3>
+
     <form action="/step-3" method="post">
         {% include './partials/step-1-fields.html' %}
         {% include './partials/step-1-1-fields.html' %}
@@ -14,8 +15,6 @@
         {% include './partials/step-1-3-fields.html' %}
         {% include './partials/step-1-4-fields.html' %}
         {% include './partials/step-2-fields.html' %}
-
-        <h3 class="lbh-heading-h3">Why are you getting in touch with us today? (optional)</h3>
 
         {{ lbhTextarea({
             "hint": {
@@ -49,9 +48,9 @@
                     "checked": true if query.what_coronavirus_help and "Accessing medicines" in query.what_coronavirus_help else false
                 },
                 {
-                    "value": "essential supplies",
+                    "value": "accessing essential supplies",
                     "text": "Accessing other essentials, such as nappies or cleaning products",
-                    "checked": true if query.what_coronavirus_help and "essential supplies" in query.what_coronavirus_help else false
+                    "checked": true if query.what_coronavirus_help and "accessing essential supplies" in query.what_coronavirus_help else false
                 },
                 {
                     "value": "debt and money",
