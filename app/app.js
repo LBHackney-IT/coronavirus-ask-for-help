@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const compression = require('compression');
+const helmet = require('helmet');
 const nunjucks = require("nunjucks");
 const path = require("path");
 const axios = require("axios");
@@ -13,38 +15,35 @@ const errorFieldHelper = require('../helpers/fieldErrors');
 const dotenv = require("dotenv");
 dotenv.config();
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-
 if (!process.env.LOCAL) {
-    function requireHTTPS(req, res, next) {
-      // The 'x-forwarded-proto' check is for Heroku
-      if (
-        !req.secure &&
-        req.get("x-forwarded-proto") != "https" &&
-        process.env.NODE_ENV != "development"
-      ) {
-        return res.redirect("https://" + req.get("host") + req.url);
-      }
-      next();
+  function requireHTTPS(req, res, next) {
+    // The 'x-forwarded-proto' check is for Heroku
+    if (
+      !req.secure &&
+      req.get("x-forwarded-proto") != "https" &&
+      process.env.NODE_ENV != "development"
+    ) {
+      return res.redirect("https://" + req.get("host") + req.url);
     }
-  
-    app.use(requireHTTPS);
+    next();
   }
+
+  app.use(requireHTTPS);
+}
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(compression());
 
   // Define port to run server on
 const port = process.env.PORT || 9000;
 
-// Configure Nunjucks
-// const _templates = process.env.NODE_PATH
-//   ? process.env.NODE_PATH + "/templates"
-//   : "templates";
 const _templates = [
-  "",
-  "node_modules/lbh-frontend/lbh/",
-  "node_modules/lbh-frontend/lbh/components/",
-  "node_modules/govuk-frontend/govuk/",
-  "node_modules/govuk-frontend/govuk/components/"
+  'templates/',
+  'node_modules/lbh-frontend/lbh/',
+  'node_modules/lbh-frontend/lbh/components/',
+  'node_modules/govuk-frontend/govuk/',
+  'node_modules/govuk-frontend/govuk/components/'
 ];
 
 nunjucks.configure(_templates, {
@@ -53,15 +52,27 @@ nunjucks.configure(_templates, {
   express: app
 }).addGlobal('GA_UA', process.env.GA_UA);
 
-// Set Nunjucks as rendering engine for pages with .html suffix
-app.engine("html", nunjucks.render);
-app.set("view engine", "html");
+app.set('views', path.join(__dirname, 'templates'));
+
+// Set Nunjucks as rendering engine for pages with .njk suffix
+app.engine( 'njk', nunjucks.render ) ;
+app.set( 'view engine', 'html' ) ;
 
 app.use("/public", express.static("public"));
 
 app.use("/assets", express.static("node_modules/lbh-frontend/lbh/assets"));
 app.use("/assets", express.static("node_modules/govuk-frontend/govuk/assets"));
 
+
+app.get("/", function(req, res) {
+  return res.render("index.njk");
+});
+
+app.get("/:page", function(req, res) {
+  res.locals.query = req.query;
+
+  return res.render(req.params.page + ".njk");
+});
 
 app.post(
   "/step-1",
@@ -78,7 +89,7 @@ app.post(
       const extractedErrors = errorFieldHelper.mapFieldErrors(errors);
 
       return res.redirect(
-        "/step-1?" +
+        "/index?" +
           querystring.stringify(extractedErrors) +
           "&" +
           querystring.stringify(req.body)
@@ -90,10 +101,10 @@ app.post(
         res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
         res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
 
-        res.render("templates/step-2.html");
+        return res.render("step-2.njk");
 
       } else {
-        res.render("templates/step-1-1.html");
+        return res.render("step-1-1.njk");
       }
     }
   }
@@ -124,9 +135,9 @@ app.post(
       const query = req.body;
 
       if (query.consent_to_complete_on_behalf === 'false') {
-        res.render("templates/complete.html", {endJourney: true, messageID: '1-1'});
+        res.render("complete.njk", {endJourney: true, messageID: '1-1'});
       } else {
-        res.render("templates/step-1-2.html");
+        res.render("step-1-2.njk");
       }
     }
   }
@@ -154,7 +165,7 @@ app.post(
       );
     } else {
 
-      res.render("templates/step-1-3.html");
+      res.render("step-1-3.njk");
     }
   }
 );
@@ -181,7 +192,7 @@ app.post(
       );
     } else {
 
-      res.render("templates/step-1-4.html");
+      res.render("step-1-4.njk");
     }
   }
 );
@@ -211,7 +222,7 @@ app.post(
       res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
       res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
 
-      res.render("templates/step-2.html");
+      res.render("step-2.njk");
     }
   }
 );
@@ -245,10 +256,10 @@ app.post(
         const query = req.body;
 
         if (query.gazetteer != 'LOCAL') {
-          res.render("templates/complete.html", {endJourney: true, messageID: '2'});
+          res.render("complete.njk", {endJourney: true, messageID: '2'});
 
         } else {
-          res.render("templates/step-3.html");
+          res.render("step-3.njk");
         }
     }
   }
@@ -281,11 +292,11 @@ app.post(
       const query = req.body;
 
       if (query.what_coronavirus_help.includes('accessing medicines')) {
-        res.render("templates/step-3-1.html");
+        res.render("step-3-1.njk");
       } else if (query.what_coronavirus_help.includes('accessing essential supplies')) {
-        res.render("templates/step-3-4.html");
+        res.render("step-3-4.njk");
       } else {
-        res.render("templates/step-4.html");
+        res.render("step-4.njk");
       }
     }
   }
@@ -316,11 +327,11 @@ app.post(
       const query = req.body;
 
       if (query.medicine_delivery_help_needed === 'yes') {
-        res.render("templates/step-3-2.html");
+        res.render("step-3-2.njk");
       } else if (query.what_coronavirus_help.includes('accessing essential supplies')) {
-        res.render("templates/step-3-4.html");
+        res.render("step-3-4.njk");
       } else {
-        res.render("templates/step-4.html");
+        res.render("step-4.njk");
       }
     }
   }
@@ -351,11 +362,11 @@ app.post(
       const query = req.body;
 
       if (query.is_pharmacist_able_to_deliver != 'yes') {
-        res.render("templates/step-3-3.html");
+        res.render("step-3-3.njk");
       } else if (query.what_coronavirus_help === 'accessing essential supplies') {
-        res.render("templates/step-3-4.html");
+        res.render("step-3-4.njk");
       } else {
-        res.render("templates/step-4.html");
+        res.render("step-4.njk");
       }
     }
   }
@@ -388,9 +399,9 @@ app.post(
       const query = req.body;
 
       if (query.what_coronavirus_help.includes('accessing essential supplies')) {
-        res.render("templates/step-3-4.html");
+        res.render("step-3-4.njk");
       } else {
-        res.render("templates/step-4.html");
+        res.render("step-4.njk");
       }
     }
   }
@@ -418,7 +429,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-4.html")
+      res.render("step-4.njk")
     }
   }
 );
@@ -445,7 +456,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-5.html")
+      res.render("step-5.njk")
     }
   }
 );
@@ -473,7 +484,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-6.html")
+      res.render("step-6.njk")
     }
   }
 );
@@ -509,7 +520,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-7.html")
+      res.render("step-7.njk")
     }
   }
 );
@@ -538,7 +549,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-8.html")
+      res.render("step-8.njk")
     }
   }
 );
@@ -564,7 +575,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-9.html")
+      res.render("step-9.njk")
     }
   }
 );
@@ -592,7 +603,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/step-10.html")
+      res.render("step-10.njk")
     }
   }
 );
@@ -621,6 +632,9 @@ app.post(
       );
     } else {
       const query = req.body;
+
+      return res.render("complete.njk");
+      
       const data = JSON.stringify({
         is_on_behalf: query.is_on_behalf && true || false,
 
@@ -642,7 +656,14 @@ app.post(
         ward: query.ward || "",
 
         getting_in_touch_reason: query.getting_in_touch_reason || '',
-        what_coronavirus_help: query.what_coronavirus_help || '',
+        help_with_accessing_food: query.what_coronavirus_help.includes('') && true || false,
+        help_with_accessing_medicine: query.what_coronavirus_help.includes('') && true || false,
+        help_with_accessing_other_essentials: query.what_coronavirus_help.includes('') && true || false,
+        help_with_debt_and_money: query.what_coronavirus_help.includes('') && true || false,
+        help_with_health: query.what_coronavirus_help.includes('') && true || false,
+        help_with_mental_health: query.what_coronavirus_help.includes('') && true || false,
+        help_with_accessing_internet: query.what_coronavirus_help.includes('') && true || false,
+        help_with_something_else: query.what_coronavirus_help.includes('') && true || false,
 
         // Questions 3.1 - 3-4 go here ===============
         medicine_delivery_help_needed: query.medicine_delivery_help_needed && true || false,
@@ -690,36 +711,40 @@ app.post(
           headers: headers
       })
       .then(httpsRes => {
-          console.log(`statusCode: ${httpsRes.statusCode}`);
+        console.log(`statusCode: ${httpsRes.statusCode}`);
 
-            if (process.env.SEND_EMAILS === "true") {
-              const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
+        const notifyEmailAddress = query.on_behalf_email_address || query.email || "";
 
-              notifyClient
-                  .sendEmail(
-                  process.env.EMAIL_TEMPLATE_ID,
-                  emailAddress,
-                  {
-                    personalisation: {
-                      firstName: query.first_name || ""
-                    },
-                    reference: ""
-                  })
-                  .then(response => {
-                    res.render("templates/complete.html");
-                  })
-                  .catch(err => {
-                    console.error(err);
-                    res.render("templates/complete.html");
-                  });
-          } else {
-            res.render("templates/complete.html");
-          }
+        console.log(notifyEmailAddress);
+
+        if (process.env.SEND_EMAILS === "true" && notifyEmailAddress.length) {
+          const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
+
+          notifyClient
+              .sendEmail(
+              process.env.EMAIL_TEMPLATE_ID,
+              notifyEmailAddress,
+              {
+                personalisation: {
+                  firstName: query.first_name || ""
+                },
+                reference: ""
+              })
+              .then(response => {
+                res.render("complete.njk");
+              })
+              .catch(err => {
+                console.error(err);
+                res.render("complete.njk");
+              });
+        } else {
+          res.render("complete.njk");
+        }
       })
       .catch(error => {
           console.error(error);
           res.redirect(
-          "step-10.html?error=We're sorry but something has gone wrong, please try again&" +
+          "step-10.njk?error=We're sorry but something has gone wrong, please try again&" +
               querystring.stringify(query)
           );
       });
@@ -727,15 +752,9 @@ app.post(
   }
 );
 
-app.get("/:page", function(req, res) {
-    res.locals.query = req.query;
-    res.render("templates/" + req.params.page);
-  });
+
   
-  app.get("/", function(req, res) {
-    res.render("templates/step-1.html");
-  });
-  
+
   // Start server
   app.listen(port);
   console.log("Listening on port %s...", port);
