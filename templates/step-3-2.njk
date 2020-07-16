@@ -8,14 +8,14 @@
     <h1 class="lbh-heading-h3">Can your pharmacy deliver your medicines to you for free?</h1>
 
     <form action="/step-3-2" method="post">
-        {% include './partials/step-1-fields.html' %}
-        {% include './partials/step-1-1-fields.html' %}
-        {% include './partials/step-1-2-fields.html' %}
-        {% include './partials/step-1-3-fields.html' %}
-        {% include './partials/step-1-4-fields.html' %}
-        {% include './partials/step-2-fields.html' %}
-        {% include './partials/step-3-fields.html' %}
-        {% include './partials/step-3-1-fields.html' %}
+        {% include './partials/step-1-fields.njk' %}
+        {% include './partials/step-1-1-fields.njk' %}
+        {% include './partials/step-1-2-fields.njk' %}
+        {% include './partials/step-1-3-fields.njk' %}
+        {% include './partials/step-1-4-fields.njk' %}
+        {% include './partials/step-2-fields.njk' %}
+        {% include './partials/step-3-fields.njk' %}
+        {% include './partials/step-3-1-fields.njk' %}
 
         {{ lbhRadios({
             "idPrefix": "is_pharmacist_able_to_deliver",

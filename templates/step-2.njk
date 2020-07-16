@@ -10,11 +10,11 @@
   <h1 class="lbh-heading-h3">What is the postcode of the person who needs support?</h1>
 
   <form action="/step-2" method="post">
-    {% include './partials/step-1-fields.html' %}
-    {% include './partials/step-1-1-fields.html' %}
-    {% include './partials/step-1-2-fields.html' %}
-    {% include './partials/step-1-3-fields.html' %}
-    {% include './partials/step-1-4-fields.html' %}
+    {% include './partials/step-1-fields.njk' %}
+    {% include './partials/step-1-1-fields.njk' %}
+    {% include './partials/step-1-2-fields.njk' %}
+    {% include './partials/step-1-3-fields.njk' %}
+    {% include './partials/step-1-4-fields.njk' %}
 
     <input type="hidden" name="building_number" id="building_number" value="{{query.building_number}}">
     <input type="hidden" name="address_first_line" id="address_first_line" value="{{query.address_first_line}}">

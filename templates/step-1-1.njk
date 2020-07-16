@@ -8,7 +8,7 @@
     <h1 class="lbh-heading-h3">Do you have the consent of the person needing help to complete this form on their behalf?</h1>
 
     <form action="/step-1-1" method="post">
-        {% include './partials/step-1-fields.html' %}
+        {% include './partials/step-1-fields.njk' %}
 
         {{ lbhRadios({
             "idPrefix": "consent_to_complete_on_behalf",

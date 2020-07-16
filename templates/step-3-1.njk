@@ -9,13 +9,13 @@
     <p class="lbh-body-m">For example, because you’re unable to leave home due to coronavirus.</p>
 
     <form action="/step-3-1" method="post">
-        {% include './partials/step-1-fields.html' %}
-        {% include './partials/step-1-1-fields.html' %}
-        {% include './partials/step-1-2-fields.html' %}
-        {% include './partials/step-1-3-fields.html' %}
-        {% include './partials/step-1-4-fields.html' %}
-        {% include './partials/step-2-fields.html' %}
-        {% include './partials/step-3-fields.html' %}
+        {% include './partials/step-1-fields.njk' %}
+        {% include './partials/step-1-1-fields.njk' %}
+        {% include './partials/step-1-2-fields.njk' %}
+        {% include './partials/step-1-3-fields.njk' %}
+        {% include './partials/step-1-4-fields.njk' %}
+        {% include './partials/step-2-fields.njk' %}
+        {% include './partials/step-3-fields.njk' %}
 
         {{ lbhRadios({
             "idPrefix": "medicine_delivery_help_needed",
