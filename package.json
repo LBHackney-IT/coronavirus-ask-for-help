@@ -22,10 +22,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.5.0",
     "govuk-frontend": "^3.7.0",
+    "helmet": "^3.23.3",
     "lbh-frontend": "3.0.0",
     "notifications-node-client": "^4.7.3",
     "nunjucks": "^3.2.1"
