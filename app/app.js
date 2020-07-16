@@ -583,7 +583,7 @@ app.post(
 app.post(
   "/step-9",
   [
-    check("number_of_children_under_18", "Enter the number of children under 18 in your household.")
+    check("number_of_children_under_18", "Select the number of children under 18 in your household.")
       .trim()
       .escape()
       .notEmpty()    
