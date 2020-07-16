@@ -74,7 +74,7 @@ Addresses.prototype.getAddressData = function(postcode, buildingNumber, page) {
         errorMessage.setAttribute("id", "lookup-email-error");
         errorMessage.classList.add("govuk-error-message");
         errorMessage.innerHTML =
-          '<span class="govuk-visually-hidden">Error:</span> Enter a valid postcode';
+          '<span class="govuk-visually-hidden">Error:</span> Enter a real postcode, like E8 1EA.';
         formGroup.insertBefore(errorMessage, that.postcode);
       }
     }
