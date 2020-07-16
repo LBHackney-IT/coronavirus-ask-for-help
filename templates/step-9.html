@@ -1,6 +1,6 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
-{% from 'lbh-input/macro.njk' import lbhInput %}
+{% from 'lbh-radios/macro.njk' import lbhRadios %}
 
 {% extends "./layouts/base.html" %}
 
@@ -25,11 +25,43 @@
         {% include './partials/step-7-fields.html' %}
         {% include './partials/step-8-fields.html' %}
 
-        {{ lbhInput({
-            "id": "number_of_children_under_18",
+
+        {{ lbhRadios({
+            "idPrefix": "number_of_children_under_18",
             "name": "number_of_children_under_18",
-            "value": query.number_of_children_under_18,
-             "classes": "govuk-input--width-4",
+            "classes": "govuk-radios--inline",
+            "items": [
+                {
+                "value": "0",
+                "text": "0",
+                "checked": true if query.number_of_children_under_18 == "0" else false
+                },
+                {
+                "value": "1",
+                "text": "1",
+                "checked": true if query.number_of_children_under_18 == "1" else false
+                },
+                {
+                "value": "2",
+                "text": "2",
+                "checked": true if query.number_of_children_under_18 == "2" else false
+                },
+                {
+                "value": "3",
+                "text": "3",
+                "checked": true if query.number_of_children_under_18 == "3" else false
+                },
+                {
+                "value": "4",
+                "text": "4",
+                "checked": true if query.number_of_children_under_18 == "4" else false
+                },
+                {
+                "value": "5 or more",
+                "text": "5 or more",
+                "checked": true if query.number_of_children_under_18 == "5 or more" else false
+                }
+            ],
             "errorMessage": {
                 "text": query.error_number_of_children_under_18
             } if query.error_number_of_children_under_18 else null

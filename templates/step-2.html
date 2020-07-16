@@ -35,9 +35,6 @@
       }
     }) %}
       {{ lbhInput({
-        "hint": {
-          "text": "Enter the postcode where you or someone you know needs support."
-        },
         "id": "lookup_postcode",
         "name": "lookup_postcode",
         "value": query.lookup_postcode,
@@ -57,9 +54,6 @@
         attributes: {"id": "address-finder", "data-api-url": addresses_api_url, "data-api-key": addresses_api_key}
       })}}
     {% endcall %}
-    
-    
-    
 
     {{ lbhButton({
       text: "Continue",

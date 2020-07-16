@@ -5,7 +5,7 @@
 {% extends "./layouts/base.html" %}
 
 {% block content %}
-    <h1 class="lbh-heading-h3">GP surgery details (Optional)</h1>
+    <h1 class="lbh-heading-h3">Which GP surgery are you registered with? (Optional)</h1>
 
     <form action="/step-8" method="post">
         {% include './partials/step-1-fields.html' %}
@@ -26,7 +26,7 @@
 
         {{ lbhTextarea({
             "hint": {
-                "text": "Please provide the name and address of the GP surgery you are registered with"
+                "text": "Please provide the name and address of the GP surgery you are registered with. This will help us to arrange support for you more quickly."
             },
             "id": "gp_surgery_details",
             "name": "gp_surgery_details",

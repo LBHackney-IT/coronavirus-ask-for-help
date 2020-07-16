@@ -1,10 +1,18 @@
 {% from 'lbh-header/macro.njk' import lbhHeader %}
 {% from 'lbh-button/macro.njk' import lbhButton %}
 {% from 'lbh-radios/macro.njk' import lbhRadios %}
+{% from 'lbh-error-summary/macro.njk' import lbhErrorSummary %}
 
 {% extends "./layouts/base.html" %}
 
 {% block content %}
+    {% if query.error %}
+        {{lbhErrorSummary({
+            "titleText": "Something went wrong",
+            "descriptionText": query.error
+        })}}
+    {% endif %}
+
     <h1 class="lbh-heading-h3">Can we share the information you’ve provided with voluntary or community organisations?</h1>
     <p class="lbh-body-m">For example, sharing your contact details with a charity so they can call you to offer support.</p>
     <p class="lbh-body-m">If we cannot share your information, it will be harder for us to find support but we can still help.</p>
