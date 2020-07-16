@@ -620,7 +620,109 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.render("templates/complete.html")
+      const query = req.body;
+      const data = JSON.stringify({
+        is_on_behalf: query.is_on_behalf && true || false,
+
+        consent_to_complete_on_behalf: query.consent_to_complete_on_behalf,
+
+        on_behalf_first_name: query.is_on_behalf && query.on_behalf_first_name || "",
+        on_behalf_last_name: query.is_on_behalf && query.on_behalf_last_name || "",
+
+        on_behalf_email_address: query.is_on_behalf && query.on_behalf_email_address || "",
+        on_behalf_contact_number: query.is_on_behalf && query.on_behalf_contact_number || "",
+
+        relationship_with_resident: query.is_on_behalf && query.relationship_with_resident || "",
+
+        address_first_line: query.address_first_line || "",
+        address_second_line: query.address_second_line || "",
+        address_third_line: query.address_third_line || "",
+        postcode: query.postcode,
+        uprn: query.uprn || "",
+        ward: query.ward || "",
+
+        getting_in_touch_reason: query.getting_in_touch_reason || '',
+        what_coronavirus_help: query.what_coronavirus_help || '',
+
+        // Questions 3.1 - 3-4 go here ===============
+        medicine_delivery_help_needed: query.medicine_delivery_help_needed && true || false,
+
+        is_pharmacist_able_to_deliver: query.is_pharmacist_able_to_deliver && query.is_pharmacist_able_to_deliver === "yes" && true || false,
+
+        name_address_pharmacist: query.name_address_pharmacist || "",
+
+        urgent_essentials: query.urgent_essentials || "",
+        urgent_essentials_anything_else: query.urgent_essentials_anything_else || "",
+
+        // Questions 3.1 - 3-4 ===================
+
+        current_support: query.current_support || '',
+        current_support_feedback: query.current_support_feedback || '',
+
+        first_name: query.first_name || "",
+        last_name: query.last_name || "",
+
+        dob_day : query.dob_day || "",
+        dob_month : query.dob_month || "",
+        dob_year : query.dob_year || "",
+
+        contact_telephone_number: query.contact_telephone_number || "",
+        contact_mobile_number: query.contact_mobile_number || "",
+        email_address: query.email || "",
+
+        gp_surgery_details: query.gp_surgery_details || "",
+
+        number_of_children_under_18: query.number_of_children_under_18 || '',
+
+        consent_to_share: query.consent_to_share && true || false,
+
+        date_time_recorded: new Date()
+    });
+
+    var headers = {
+        "Content-Type": "application/json",
+        "Content-Length": data.length,
+        "x-api-key": process.env.RESIDENT_SUPPORT_REQUESTS_API_KEY
+    };
+
+    axios
+      .post(process.env.RESIDENT_SUPPORT_REQUESTS_API_URL, data, {
+          headers: headers
+      })
+      .then(httpsRes => {
+          console.log(`statusCode: ${httpsRes.statusCode}`);
+
+            if (process.env.SEND_EMAILS === "true") {
+              const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
+
+              notifyClient
+                  .sendEmail(
+                  process.env.EMAIL_TEMPLATE_ID,
+                  emailAddress,
+                  {
+                    personalisation: {
+                      firstName: query.first_name || ""
+                    },
+                    reference: ""
+                  })
+                  .then(response => {
+                    res.render("templates/complete.html");
+                  })
+                  .catch(err => {
+                    console.error(err);
+                    res.render("templates/complete.html");
+                  });
+          } else {
+            res.render("templates/complete.html");
+          }
+      })
+      .catch(error => {
+          console.error(error);
+          res.redirect(
+          "step-10.html?error=We're sorry but something has gone wrong, please try again&" +
+              querystring.stringify(query)
+          );
+      });
     }
   }
 );
