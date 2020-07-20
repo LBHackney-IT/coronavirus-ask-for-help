@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1 class="lbh-heading-h3">What is your date of birth?</h1>
-    <p class="lbh-body-m">For example, 31 3 1980.</p>
+    <p class="lbh-body-m">If you’re filling in the form for someone else, enter the date of birth of the person who needs help.</p>
 
     <form action="/step-6" method="post">
         {% include './partials/step-1-fields.njk' %}
@@ -25,6 +25,9 @@
 
 
         {{ lbhDateInput({
+            "hint": {
+                "text": "For example, 31 3 1980."
+            },
             "items": [
                 {
                 "id": "dob_day",
