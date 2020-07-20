@@ -66,3 +66,9 @@ img {
 .vch-logo {
   width: 200px;
 }
+
+@media (min-width: 48.0625em) {
+  .lbh-header__service-name {
+    margin-left: 50px;
+  }
+}
