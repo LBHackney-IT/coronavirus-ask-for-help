@@ -14,6 +14,8 @@ function Addresses() {
 }
 
 Addresses.prototype.init = function() {
+  const that = this;
+
   if (this.addressFinderButton) {
     this.API_KEY = this.addressFinderButton.getAttribute("data-api-key");
     this.API_URL = this.addressFinderButton.getAttribute("data-api-url");
@@ -21,6 +23,18 @@ Addresses.prototype.init = function() {
       "click",
       this.lookupAddress.bind(this)
     );
+
+    this.postcode.addEventListener("keydown", function(e) {
+      
+    try {
+      if (e.keyCode  == 13) {
+        that.addressFinderButton.click().bind(that);
+      }
+    } catch (e) { };
+    
+    return true;
+
+    });
   }
 };
 
@@ -39,6 +53,7 @@ Addresses.prototype.lookupAddress = function() {
   this.addresses = [];
   this.getAddressData(postcode, buildingNumber, 1);
 };
+
 
 Addresses.prototype.getAddressData = function(postcode, buildingNumber, page) {
   var xhttp = new XMLHttpRequest();

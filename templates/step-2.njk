@@ -10,6 +10,8 @@
   <h1 class="lbh-heading-h3">What is the postcode of the person who needs support?</h1>
 
   <form action="/step-2" method="post">
+    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
     {% include './partials/step-1-fields.njk' %}
     {% include './partials/step-1-1-fields.njk' %}
     {% include './partials/step-1-2-fields.njk' %}
@@ -24,6 +26,7 @@
     <input type="hidden" name="uprn" id="uprn" value="{{query.uprn}}">
     <input type="hidden" name="ward" id="ward" value="{{query.ward}}">
     <input type="hidden" name="gazetteer" id="gazetteer" value="{{query.gazetteer}}">
+
 
     {% call lbhFieldset({
       legend: {

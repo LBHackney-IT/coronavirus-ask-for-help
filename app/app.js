@@ -71,6 +71,9 @@ app.get("/", function(req, res) {
 app.get("/:page", function(req, res) {
   res.locals.query = req.query;
 
+  res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
+  res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
+
   return res.render(req.params.page + ".njk");
 });
 
@@ -219,8 +222,7 @@ app.post(
           querystring.stringify(req.body)
       );
     } else {
-      res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
-      res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
+      
 
       res.render("step-2.njk");
     }
@@ -230,12 +232,12 @@ app.post(
 app.post(
   "/step-2",
   [
-    check("postcode", "Enter a real postcode, like E8 1EA.")
+    check("lookup_postcode", "Enter a real postcode, like E8 1EA.")
         .trim()
         .escape()
         .notEmpty(),
-    check("postcode", "Enter a real postcode, like E8 1EA.")
-        .if(check("postcode").notEmpty())
+    check("lookup_postcode", "Enter a real postcode, like E8 1EA.")
+        .if(check("lookup_postcode").notEmpty())
         .isPostalCode("GB"),
   ],
   function(req, res) {
