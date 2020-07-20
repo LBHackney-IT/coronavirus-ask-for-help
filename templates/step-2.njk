@@ -29,15 +29,14 @@
 
 
     {% call lbhFieldset({
-      legend: {
-        text: "Postcode",
-        isPageHeading: false
-      },
       attributes: {
         id: "address-lookup-fieldset"
       }
     }) %}
       {{ lbhInput({
+        "label": {
+          "text": "Postcode"
+        },
         "id": "lookup_postcode",
         "name": "lookup_postcode",
         "value": query.lookup_postcode,
