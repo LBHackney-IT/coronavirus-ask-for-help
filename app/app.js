@@ -55,7 +55,9 @@ nunjucks.configure(_templates, {
   autoescape: true,
   cache: false,
   express: app
-}).addGlobal('GA_UA', process.env.GA_UA);
+}).addGlobal('GA_UA', process.env.GA_UA)
+  .addGlobal('addresses_api_url', process.env.ADDRESSES_API_URL)
+  .addGlobal('addresses_api_key',  process.env.ADDRESSES_API_KEY)
 
 app.set('views', path.join(__dirname, 'templates'));
 
@@ -80,9 +82,6 @@ app.get("/", isAuthorised, function(req, res) {
 
 app.get("/:page", function(req, res) {
   res.locals.query = req.query;
-
-  res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
-  res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
 
   return res.render(req.params.page + ".njk");
 });
@@ -111,9 +110,6 @@ app.post(
       const query = req.body;
 
       if (query.is_on_behalf === 'false') {
-        res.locals.addresses_api_url = process.env.ADDRESSES_API_URL;
-        res.locals.addresses_api_key = process.env.ADDRESSES_API_KEY;
-
         return res.render("step-2.njk");
 
       } else {
@@ -233,7 +229,6 @@ app.post(
       );
     } else {
       
-
       res.render("step-2.njk");
     }
   }
