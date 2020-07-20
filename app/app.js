@@ -8,9 +8,13 @@ const axios = require("axios");
 const querystring = require("querystring");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator");
+const cookieParser = require('cookie-parser');
+
 const NotifyClient = require("notifications-node-client").NotifyClient;
 
+const config = require('../config');
 const errorFieldHelper = require('../helpers/fieldErrors');
+const {isAuthorised} = require('../middleware/auth');
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -31,6 +35,7 @@ if (!process.env.LOCAL) {
   app.use(requireHTTPS);
 }
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(compression());
@@ -64,7 +69,10 @@ app.use("/assets", express.static("node_modules/lbh-frontend/lbh/assets"));
 app.use("/assets", express.static("node_modules/govuk-frontend/govuk/assets"));
 
 
-app.get("/", function(req, res) {
+app.get("/", isAuthorised, function(req, res) {
+  res.locals.isAuthorised = req.auth.isAuthorised;
+  res.locals.authName = req.auth.authName;
+
   return res.render("index.njk");
 });
 
