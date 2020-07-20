@@ -72,3 +72,48 @@ img {
     margin-left: 50px;
   }
 }
+
+#loader_overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  opacity: 0;
+  z-index: -1;
+
+  .is-loading & {
+    opacity: .85;
+    z-index: 100;
+  }
+}
+
+#loader_spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid lbh-colour("lbh-link");
+  border-bottom: 16px solid lbh-colour("lbh-link");
+  width: 120px;
+  height: 120px;
+  animation: loader_spin 2s linear infinite;
+}
+
+@-webkit-keyframes loader_spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes loader_spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

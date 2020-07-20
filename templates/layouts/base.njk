@@ -27,6 +27,12 @@
   })}}
 {% endblock %}
 
+{% block beforeContent %}
+<div id="loader_overlay" class="">
+  <div id="loader_spinner"></div>
+</div>
+{% endblock %}
+
 {% block bodyEnd %}
   <script src="public/main.js?v=1.1"></script>
 {% endblock %}
