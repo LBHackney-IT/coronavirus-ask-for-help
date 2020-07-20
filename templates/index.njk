@@ -7,6 +7,10 @@
 {% block content %}
     <h1 class="lbh-heading-h3">Are you completing this form on behalf of someone else?</h1>
 
+    {% if isAuthorised %}
+    <h2 class="lbh-heading-lbh-h2">Authorised user: {{ authName }} is logged in</h2> 
+    {% endif %}
+
     <form action="/step-1" method="post">
         {{ lbhRadios({
             "idPrefix": "is_on_behalf",
