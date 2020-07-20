@@ -640,71 +640,67 @@ app.post(
     } else {
       const query = req.body;
 
-      return res.render("complete.njk");
-      
       const data = JSON.stringify({
-        is_on_behalf: query.is_on_behalf && true || false,
+        IsOnBehalf: query.is_on_behalf && true || false,
 
-        consent_to_complete_on_behalf: query.consent_to_complete_on_behalf,
+        ConsentToCompleteOnBehalf: query.consent_to_complete_on_behalf && true || false,
 
-        on_behalf_first_name: query.is_on_behalf && query.on_behalf_first_name || "",
-        on_behalf_last_name: query.is_on_behalf && query.on_behalf_last_name || "",
+        OnBehalfFirstName: query.is_on_behalf && query.on_behalf_first_name || "",
+        OnBehalfLastName: query.is_on_behalf && query.on_behalf_last_name || "",
 
-        on_behalf_email_address: query.is_on_behalf && query.on_behalf_email_address || "",
-        on_behalf_contact_number: query.is_on_behalf && query.on_behalf_contact_number || "",
+        OnBehalfEmailAddress: query.is_on_behalf && query.on_behalf_email_address || "",
+        OnBehalfContactNumber: query.is_on_behalf && query.on_behalf_contact_number || "",
 
-        relationship_with_resident: query.is_on_behalf && query.relationship_with_resident || "",
+        RelationshipWithResident: query.is_on_behalf && query.relationship_with_resident || "",
 
-        address_first_line: query.address_first_line || "",
-        address_second_line: query.address_second_line || "",
-        address_third_line: query.address_third_line || "",
-        postcode: query.postcode,
-        uprn: query.uprn || "",
-        ward: query.ward || "",
+        AddressFirstLine: query.address_first_line || "",
+        AddressSecondLine: query.address_second_line || "",
+        AddressThirdLine: query.address_third_line || "",
+        PostCode: query.postcode,
+        Uprn: query.uprn || "",
+        Ward: query.ward || "",
 
-        getting_in_touch_reason: query.getting_in_touch_reason || '',
-        help_with_accessing_food: query.what_coronavirus_help.includes('') && true || false,
-        help_with_accessing_medicine: query.what_coronavirus_help.includes('') && true || false,
-        help_with_accessing_other_essentials: query.what_coronavirus_help.includes('') && true || false,
-        help_with_debt_and_money: query.what_coronavirus_help.includes('') && true || false,
-        help_with_health: query.what_coronavirus_help.includes('') && true || false,
-        help_with_mental_health: query.what_coronavirus_help.includes('') && true || false,
-        help_with_accessing_internet: query.what_coronavirus_help.includes('') && true || false,
-        help_with_something_else: query.what_coronavirus_help.includes('') && true || false,
+        GettingInTouchReason: query.getting_in_touch_reason || '',
+        HelpWithAccessingFood: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithAccessingMedicine: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithAccessingOtherEssentials: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithDebtAndMoney: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithHealth: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithMentalHealth: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithAccessingInternet: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithSomethingElse: query.what_coronavirus_help.includes('') && true || false,
 
-        // Questions 3.1 - 3-4 go here ===============
-        medicine_delivery_help_needed: query.medicine_delivery_help_needed && true || false,
+        MedicineDeliveryHelpNeeded: query.medicine_delivery_help_needed && true || false,
 
-        is_pharmacist_able_to_deliver: query.is_pharmacist_able_to_deliver && query.is_pharmacist_able_to_deliver === "yes" && true || false,
+        IsPharmacistAbleToDeliver: query.is_pharmacist_able_to_deliver && query.is_pharmacist_able_to_deliver === "yes" && true || false,
 
-        name_address_pharmacist: query.name_address_pharmacist || "",
+        WhenIsMedicinesDelivered: query.when_is_medicines_delivered || "",
+        NameAddressPharmacist: query.name_address_pharmacist || "",
 
-        urgent_essentials: query.urgent_essentials || "",
-        urgent_essentials_anything_else: query.urgent_essentials_anything_else || "",
+        UrgentEssentials: query.urgent_essentials || "",
+        UrgentEssentialsAnythingElse: query.urgent_essentials_anything_else || "",
 
-        // Questions 3.1 - 3-4 ===================
+        CurrentSupport: query.current_support || '',
+        CurrentSupportFeedback: query.current_support_feedback || '',
 
-        current_support: query.current_support || '',
-        current_support_feedback: query.current_support_feedback || '',
+        FirstName: query.first_name || "",
+        LastName: query.last_name || "",
 
-        first_name: query.first_name || "",
-        last_name: query.last_name || "",
+        DobDay : query.dob_day || "",
+        DobMonth : query.dob_month || "",
+        DobYear : query.dob_year || "",
 
-        dob_day : query.dob_day || "",
-        dob_month : query.dob_month || "",
-        dob_year : query.dob_year || "",
+        ContactTelephoneNumber: query.contact_telephone_number || "",
+        ContactMobileNumber: query.contact_mobile_number || "",
+        EmailAddress: query.email || "",
 
-        contact_telephone_number: query.contact_telephone_number || "",
-        contact_mobile_number: query.contact_mobile_number || "",
-        email_address: query.email || "",
+        GpSurgeryDetails: query.gp_surgery_details || "",
 
-        gp_surgery_details: query.gp_surgery_details || "",
+        NumberOfChildrenUnder18: query.number_of_children_under_18 || '',
 
-        number_of_children_under_18: query.number_of_children_under_18 || '',
+        ConsentToShare: query.consent_to_share && true || false,
 
-        consent_to_share: query.consent_to_share && true || false,
-
-        date_time_recorded: new Date()
+        DateTimeRecorded: new Date()
     });
 
     var headers = {
@@ -721,8 +717,6 @@ app.post(
         console.log(`statusCode: ${httpsRes.statusCode}`);
 
         const notifyEmailAddress = query.on_behalf_email_address || query.email || "";
-
-        console.log(notifyEmailAddress);
 
         if (process.env.SEND_EMAILS === "true" && notifyEmailAddress.length) {
           const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
@@ -751,7 +745,7 @@ app.post(
       .catch(error => {
           console.error(error);
           res.redirect(
-          "step-10.njk?error=We're sorry but something has gone wrong, please try again&" +
+          "step-10?error=We're sorry but something has gone wrong, please try again&" +
               querystring.stringify(query)
           );
       });
