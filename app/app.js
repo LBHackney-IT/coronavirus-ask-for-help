@@ -70,8 +70,10 @@ app.use("/assets", express.static("node_modules/govuk-frontend/govuk/assets"));
 
 
 app.get("/", isAuthorised, function(req, res) {
-  res.locals.isAuthorised = req.auth.isAuthorised;
-  res.locals.authName = req.auth.authName;
+  if (req.auth) {
+    res.locals.isAuthorised = req.auth.isAuthorised;
+    res.locals.authName = req.auth.authName;
+  }
 
   return res.render("index.njk");
 });
