@@ -19,7 +19,7 @@ const {isAuthorised} = require('../middleware/auth');
 const dotenv = require("dotenv");
 dotenv.config();
 
-if (!process.env.LOCAL) {
+if (!config.local) {
   function requireHTTPS(req, res, next) {
     // The 'x-forwarded-proto' check is for Heroku
     if (
@@ -41,7 +41,7 @@ app.use(helmet());
 app.use(compression());
 
   // Define port to run server on
-const port = process.env.PORT || 9000;
+const port = config.port || 9000;
 
 const _templates = [
   'templates/',
@@ -55,9 +55,9 @@ nunjucks.configure(_templates, {
   autoescape: true,
   cache: false,
   express: app
-}).addGlobal('GA_UA', process.env.GA_UA)
-  .addGlobal('addresses_api_url', process.env.ADDRESSES_API_URL)
-  .addGlobal('addresses_api_key',  process.env.ADDRESSES_API_KEY)
+}).addGlobal('GA_UA', config.ga_ua)
+  .addGlobal('addresses_api_url', config.addresses_api_url)
+  .addGlobal('addresses_api_key',  config.addresses_api_key)
 
 app.set('views', path.join(__dirname, 'templates'));
 
@@ -661,14 +661,18 @@ app.post(
         Ward: query.ward || "",
 
         GettingInTouchReason: query.getting_in_touch_reason || '',
-        HelpWithAccessingFood: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithAccessingFood: query.what_coronavirus_help.includes('food and essential supplies') && true || false,
         HelpWithAccessingMedicine: query.what_coronavirus_help.includes('') && true || false,
         HelpWithAccessingOtherEssentials: query.what_coronavirus_help.includes('') && true || false,
-        HelpWithDebtAndMoney: query.what_coronavirus_help.includes('') && true || false,
-        HelpWithHealth: query.what_coronavirus_help.includes('') && true || false,
-        HelpWithMentalHealth: query.what_coronavirus_help.includes('') && true || false,
-        HelpWithAccessingInternet: query.what_coronavirus_help.includes('') && true || false,
-        HelpWithSomethingElse: query.what_coronavirus_help.includes('') && true || false,
+        HelpWithDebtAndMoney: query.what_coronavirus_help.includes('debt and money') && true || false,
+        HelpWithHealth: query.what_coronavirus_help.includes('health') && true || false,
+        HelpWithMentalHealth: query.what_coronavirus_help.includes('mental health') && true || false,
+        HelpWithHousing: query.what_coronavirus_help.includes('housing') && true || false,
+        HelpWithJobsOrTraining: query.what_coronavirus_help.includes('jobs or training') && true || false,
+        HelpWithChildrenAndSchools: query.what_coronavirus_help.includes('children and schools') && true || false,
+        HelpWithDisabilities: query.what_coronavirus_help.includes('disabilities') && true || false,  
+        HelpWithAccessingInternet: query.what_coronavirus_help.includes('technology support') && true || false,
+        HelpWithSomethingElse: query.what_coronavirus_help.includes('something else') && true || false,
 
         MedicineDeliveryHelpNeeded: query.medicine_delivery_help_needed && true || false,
 
@@ -706,11 +710,11 @@ app.post(
     var headers = {
         "Content-Type": "application/json",
         "Content-Length": data.length,
-        "x-api-key": process.env.RESIDENT_SUPPORT_REQUESTS_API_KEY
+        "x-api-key": config.resident_support_request_api_key
     };
 
     axios
-      .post(process.env.RESIDENT_SUPPORT_REQUESTS_API_URL, data, {
+      .post(config.resident_support_request_api_url, data, {
           headers: headers
       })
       .then(httpsRes => {
@@ -718,12 +722,14 @@ app.post(
 
         const notifyEmailAddress = query.on_behalf_email_address || query.email || "";
 
-        if (process.env.SEND_EMAILS === "true" && notifyEmailAddress.length) {
-          const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
+        console.log("EMAIL;", notifyEmailAddress);
+
+        if (config.send_emails === "true" && notifyEmailAddress.length) {
+          const notifyClient = new NotifyClient(config.notify_api_key);
 
           notifyClient
               .sendEmail(
-              process.env.EMAIL_TEMPLATE_ID,
+              config.email_template_id,
               notifyEmailAddress,
               {
                 personalisation: {
