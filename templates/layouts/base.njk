@@ -2,15 +2,15 @@
 
 {% block head %}
 
-  {% if GA_UA %}
+  {% if GTM_CODE %}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_UA }}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GTM_CODE }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', '{{ GA_UA }}');
+    gtag('config', '{{ GTM_CODE }}');
   </script>
   {% endif %}
 
