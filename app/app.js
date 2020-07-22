@@ -9,15 +9,15 @@ const querystring = require("querystring");
 const bodyParser = require("body-parser");
 const { check, validationResult } = require("express-validator");
 const cookieParser = require('cookie-parser');
+const dotenv = require("dotenv");
 
 const NotifyClient = require("notifications-node-client").NotifyClient;
 
-const config = require('../config');
 const errorFieldHelper = require('../helpers/fieldErrors');
-const {isAuthorised} = require('../middleware/auth');
+const config = require('../config');
 
-const dotenv = require("dotenv");
 dotenv.config();
+
 
 if (!config.local) {
   function requireHTTPS(req, res, next) {
@@ -25,7 +25,7 @@ if (!config.local) {
     if (
       !req.secure &&
       req.get("x-forwarded-proto") != "https" &&
-      process.env.NODE_ENV != "development"
+      config.node_env != "development"
     ) {
       return res.redirect("https://" + req.get("host") + req.url);
     }
@@ -59,7 +59,6 @@ nunjucks.configure(_templates, {
   .addGlobal('addresses_api_url', config.addresses_api_url)
   .addGlobal('addresses_api_key',  config.addresses_api_key)
 
-app.set('views', path.join(__dirname, 'templates'));
 
 // Set Nunjucks as rendering engine for pages with .njk suffix
 app.engine( 'njk', nunjucks.render ) ;
@@ -71,12 +70,7 @@ app.use("/assets", express.static("node_modules/lbh-frontend/lbh/assets"));
 app.use("/assets", express.static("node_modules/govuk-frontend/govuk/assets"));
 
 
-app.get("/", isAuthorised, function(req, res) {
-  if (req.auth) {
-    res.locals.isAuthorised = req.auth.isAuthorised;
-    res.locals.authName = req.auth.authName;
-  }
-
+app.get("/", function(req, res) {
   return res.render("index.njk");
 });
 
