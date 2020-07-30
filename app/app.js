@@ -634,6 +634,8 @@ app.post(
     } else {
       const query = req.body;
 
+      const currentSupport = Array.isArray(query.current_support) ? query.current_support.join() : query.current_support;
+
       const data = JSON.stringify({
         IsOnBehalf: query.is_on_behalf && true || false,
 
@@ -678,7 +680,7 @@ app.post(
         UrgentEssentials: query.urgent_essentials || "",
         UrgentEssentialsAnythingElse: query.urgent_essentials_anything_else || "",
 
-        CurrentSupport: query.current_support || '',
+        CurrentSupport: currentSupport || '',
         CurrentSupportFeedback: query.current_support_feedback || '',
 
         FirstName: query.first_name || "",
