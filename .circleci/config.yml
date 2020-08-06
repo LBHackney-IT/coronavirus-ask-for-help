@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install
+          command: npm install --production
       - run:
           name: Run unit tests
           command: npm run test
