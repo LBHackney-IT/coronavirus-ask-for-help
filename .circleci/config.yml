@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.0.0
+
+executors:
+  build-and-test:
+    docker:
+      - image: circleci/node:12.13-browsers
+
+jobs:
+  build-and-test:
+    executor: build-and-test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Build the application
+          command:
+            yarn build
+      - run:
+          name: Run unit tests
+          command: yarn test
+      - run:
+          name: Run linting
+          command: yarn lint
+
+workflows:
+  version: 2
+  continuous-delivery:
+    jobs:
+      - build-and-test
