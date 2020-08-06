@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install --production
+          command: npm install --frozen-lockfile
       - run:
           name: Run unit tests
           command: npm run test
