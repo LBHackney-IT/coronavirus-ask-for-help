@@ -13,7 +13,7 @@
     "pre-release": "node bin/check-nvmrc.js && ./bin/pre-release.sh",
     "release": "node bin/check-nvmrc.js && ./bin/release.sh",
     "release-to-branch": "node bin/check-nvmrc.js && ./bin/release-to-branch.sh",
-    "test": "mocha --reporter spec"
+    "test": "gulp test"
   },
   "author": "Jayson Hunter jayson.hunter@hackney.gov.uk",
   "license": "ISC",
