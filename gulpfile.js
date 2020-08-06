@@ -4,6 +4,7 @@ const paths = require('./config/paths.json')
 const gulp = require('gulp')
 const taskListing = require('gulp-task-listing')
 const taskArguments = require('./tasks/gulp/task-arguments')
+const mocha = require('gulp-mocha');
 
 // Gulp sub-tasks
 require('./tasks/gulp/clean.js')
@@ -42,10 +43,16 @@ gulp.task('copy:img', () => {
 // All test combined --------------------
 // Runs js, scss and accessibility tests
 // --------------------------------------
-gulp.task('test', gulp.series(
-  'scss:lint',
-  'scss:compile'
-))
+gulp.task('test',  () => {
+  return gulp.src('test/**/*.js')
+      .pipe(mocha({
+          reporter: 'spec'
+      }))
+      .on("error", function (err) {
+          console.log(err.toString());
+          this.emit('end');
+      });
+});
 
 // Copy assets task for local & heroku --
 // Copies files to
