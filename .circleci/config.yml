@@ -13,10 +13,10 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: yarn install --frozen-lockfile
+          command: npm install
       - run:
           name: Run unit tests
-          command: yarn test
+          command: npm run test
 
 workflows:
   version: 2
