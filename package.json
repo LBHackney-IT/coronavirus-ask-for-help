@@ -13,10 +13,7 @@
     "pre-release": "node bin/check-nvmrc.js && ./bin/pre-release.sh",
     "release": "node bin/check-nvmrc.js && ./bin/release.sh",
     "release-to-branch": "node bin/check-nvmrc.js && ./bin/release-to-branch.sh",
-    "build:dist": "node bin/check-nvmrc.js && gulp build:dist --destination 'dist' && npm run test:build:dist",
-    "test": "npm run test:dependencies && standard && gulp test && gulp copy-assets && jest --testPathIgnorePatterns='after-*'",
-    "test:dependencies": "npm ls --depth=0",
-    "test:build:dist": "jest tasks/gulp/__tests__/after-build-dist.test.js"
+    "test": "gulp test"
   },
   "author": "Jayson Hunter jayson.hunter@hackney.gov.uk",
   "license": "ISC",
@@ -35,7 +32,10 @@
   "devDependencies": {
     "acorn": "^6.4.1",
     "autoprefixer": "^9.8.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
     "cookie-parser": "^1.4.5",
     "cssnano": "^4.1.10",
@@ -50,6 +50,7 @@
     "gulp-eol": "^0.2.0",
     "gulp-filter": "^6.0.0",
     "gulp-if": "^2.0.2",
+    "gulp-mocha": "^7.0.2",
     "gulp-nunjucks": "^5.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
@@ -64,6 +65,7 @@
     "map-stream": "0.0.7",
     "marked": "^0.8.2",
     "merge-stream": "^2.0.0",
+    "mocha": "^8.1.1",
     "node-sass": "^4.14.1",
     "nodemon": "^1.18.11",
     "oldie": "^1.3.0",

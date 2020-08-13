@@ -5,7 +5,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
     node_env: process.env.NODE_ENV,
-    host: process.env.HOST || "localhost",
+    host: process.env.HOST || "0.0.0.0",
     port: parseInt(process.env.PORT, 10) || 9000,
     protocol: process.env.PROTOCOL,
     local: process.env.LOCAL,

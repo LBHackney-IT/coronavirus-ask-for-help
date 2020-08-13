@@ -1,0 +1,25 @@
+version: 2.1
+
+executors:
+  build-and-test:
+    docker:
+      - image: circleci/node:12.13-browsers
+
+jobs:
+  build-and-test:
+    executor: build-and-test
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install --frozen-lockfile
+      - run:
+          name: Run unit tests
+          command: npm run test
+
+workflows:
+  version: 2
+  continuous-delivery:
+    jobs:
+      - build-and-test
